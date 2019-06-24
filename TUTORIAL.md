@@ -1,6 +1,41 @@
 CombineSlotMachine Tutorial
 =================================
 
+### Step 3 ###
+_Tag: Step3_  
+Okay, now two subscribers are getting updates when the slot machine reel values change. But they are both consuming the same end value. In this step, the score subscriber will receive an integer score indicating if the user won with the current spin.
+
+The big change in this step is adding a method that takes a tuple of three String values (the reels) and returns an Int.
+`func score(for reels: (String, String, String)) -> Int` 
+
+For any three-of-a-kind combination, points are awarded. Any other combination is not a winner. In this step, this is a very stingy slot machine. The payouts are rare. Game play will be addressed in a future step.
+
+The other little change with a big effect is changing the map closure in the   `scoreCancellable` pipeline.
+
+The closure calls into the `score(for:)` method which returns an Int.
+
+Since the `sink` subscriber will accept whatever type it receives from upstream, and the sink closure uses string interpolation to print its value no other change is needed. Now with each spin the score is printed out.
+
+Some questions:
+_Is the view controller the best place for the `score(for:)` method?_
+Probably not. But at the moment there are only about 60 lines of code in the file. It's not unweildly yet at all. I'm pretty certain that will be refactored somewhere else in a future step.
+
+_Is switching on a 3-tuple of Strings going to work in the long run?_
+Also probably not. Eventually we will probably want scores for two-of-a-kind regardless of their position and that would make for a crazy big switch statement. But it is easy to do it this way to get rolling.
+
+One of the nice things about chaining Combine operators is that you can change details in the middle of the chain, but as long as the input and output on either side of the change remain the same, you don't have rewrite the entire chain.
+
+_Is there now a reference cycle caused by the new map closure that captures self?_
+I'm not 100% sure of my answer after just a bit of investigating, but it seems like the answer is yes.  
+
+The view controller owns `scoreCancellable` which is a reference type: `Subscribers.Sink`. As long as the sink sticks around the closure in the `map` needs to stick around, so it must be held onto strongly somewhere. And then the closure strongly references the view controller.  
+
+This is the best indication yet that the `score(for:)` method should live somewhere else. 
+
+However, in this is a single view app, the single view controller, the sink, and the closure are all around for the lifetime of the app anyway. So we can live with this reference cycle for a few more steps.
+
+
+
 ### Step 2 ###
 _Tag: Step2_  
 For a little while, it’s fun to tap the spin button and see random symbols appear. But part of the fun of a slot machine is getting a winning combination of symbols.  

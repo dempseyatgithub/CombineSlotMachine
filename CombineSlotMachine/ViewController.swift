@@ -30,7 +30,7 @@ class ViewController: UIViewController {
                             .assign(to: \.text, on: spinResultsLabel)
         
         scoreCancellable = Publishers.Zip3($firstReelValue, $secondReelValue, $thirdReelValue)
-            .map{ "\($0.0) \($0.1) \($0.2)" }
+            .map{ self.score(for: $0) }
             .sink(receiveValue: { print("\($0)") })
 
     }
@@ -40,6 +40,27 @@ class ViewController: UIViewController {
         firstReelValue = reelChoices.randomElement()!
         secondReelValue = reelChoices.randomElement()!
         thirdReelValue = reelChoices.randomElement()!
+    }
+    
+    func score(for reels: (String, String, String)) -> Int {
+        switch reels {
+        case ("🍒", "🍒", "🍒"):
+            return 100
+        case ("7️⃣", "7️⃣", "7️⃣"):
+            return 75
+        case ("🔔", "🔔", "🔔"):
+            return 50
+        case ("☰", "☰", "☰"):
+            return 50
+        case ("⚌", "⚌", "⚌"):
+            return 25
+        case ("⚊", "⚊", "⚊"):
+            return 10
+        case ("🍋", "🍋", "🍋"):
+            return 5
+        default:
+            return 0
+        }
     }
 }
 
