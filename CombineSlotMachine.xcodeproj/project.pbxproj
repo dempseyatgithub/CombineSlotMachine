@@ -16,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		539A340822C11C530063DEE4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		539A340922C11C530063DEE4 /* TUTORIAL.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TUTORIAL.md; sourceTree = "<group>"; };
 		53AD10BD22BE5FBD008A1C8E /* CombineSlotMachine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CombineSlotMachine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53AD10C022BE5FBD008A1C8E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		53AD10C222BE5FBE008A1C8E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -42,6 +44,8 @@
 			children = (
 				53AD10BF22BE5FBD008A1C8E /* CombineSlotMachine */,
 				53AD10BE22BE5FBD008A1C8E /* Products */,
+				539A340822C11C530063DEE4 /* README.md */,
+				539A340922C11C530063DEE4 /* TUTORIAL.md */,
 			);
 			sourceTree = "<group>";
 		};
