@@ -17,16 +17,22 @@ class ViewController: UIViewController {
     @Published var secondReelValue: String = ""
     @Published var thirdReelValue: String = ""
     
-    var cancellable: Cancellable!
+    var reelCancellable: Cancellable!
+    var scoreCancellable: Cancellable!
     
     let reelChoices = ["🍒", "🍋", "🔔", "7️⃣", "⚊", "⚌", "☰"]
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        cancellable = Publishers.Zip3($firstReelValue, $secondReelValue, $thirdReelValue)
+        reelCancellable = Publishers.Zip3($firstReelValue, $secondReelValue, $thirdReelValue)
                             .map{ "\($0.0) \($0.1) \($0.2)" }
                             .assign(to: \.text, on: spinResultsLabel)
+        
+        scoreCancellable = Publishers.Zip3($firstReelValue, $secondReelValue, $thirdReelValue)
+            .map{ "\($0.0) \($0.1) \($0.2)" }
+            .sink(receiveValue: { print("\($0)") })
+
     }
 
 
